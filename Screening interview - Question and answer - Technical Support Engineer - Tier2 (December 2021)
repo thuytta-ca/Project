@@ -1,0 +1,179 @@
+
+https://www.linkedin.com/company/perforce/about/
+https://www.perforce.com/
+
+My screening interview - Question and answer - Technical Support Engineer - Tier2 (December 2021)
+
+Make your best effort to solve or explain each of the problems provided below. Use any resources that you wish.
+
+1.	
+a.	Name the four main stages of compilation a C program undergoes to become executable
+Preprocessing, compilation, assembly, and linking.
+-	Preprocessing: In this stage, lines starting with a # character are interpreted by the preprocessor as preprocessor commands
+-	Compilation: In this stage, the preprocessed code is translated to assembly instructions specific to the target processor architecture. These form an intermediate human-readable language.
+-	Assembly: During this stage, an assembler is used to translate the assembly instructions to object code.
+-	Linking: The object code generated in the assembly stage is composed of machine instructions that the processor understands but some pieces of the program are out of order or missing. To produce an executable program, the existing pieces have to be rearranged and the missing ones filled in. This process is called linking.
+
+
+b.	You’ve forgotten to specify the path to a header file. At what point in the compilation process will this likely result in a compilation error?
+
+Header files have extensions like .h, .hpp, or .hxx, or have no extension at all. If I’ve forgotten to specify the path to a header file, then I can't use any of the macros defined in the headers.
+At the point to linkage the source code with the header file and the header file include from source files (header file’s not passed to the compiler), but the header file is not there, because I’ve forgotten to specify it, then I have an error in the compilation process. So, the compiler can't check that I’m calling functions properly since the headers define their parameters for it.
+
+
+c.	You attempt to analyse the project using a static code analysis tool: how do you think the missing header file would affect the results?
+Static analysis tools are designed to detect defects in the source code of programs.
+The missing header file would affect the results of compilation and I can’t compile the update due to a missing include header file, even I run static code analysis tools such as Cppcheck and clang-tidy several time to find bugs, the result always no errors found, and the missing header files are programming errors, not compiler bugs.
+2.	In your opinion, in terms of static code analysis, which type of error is more serious: A False Negative or a False Positive??  Why?
+-	A false positive is an issue that doesn’t actually exist in the code. It doesn’t need to be fixed. This happens when no rule violation exists, but a diagnostic is generated. Example (type I error): A False Positive would be telling someone they are pregnant when in fact they are not, like telling a man they are pregnant.
+-	A false negative is an issue that goes undetected. This happens when a rule violation exists, but no diagnostic is created. Example (type II error): A false negative would be telling a pregnant woman they are not pregnant.
+-	In terms of static code analysis, it’s not easy for determining which type of error is more serious. The consequences associated with each error is dependent on the problem. The errors will happen throughout projects and experiments. It is up to the project designer, test maker, or data scientist to determine which error needs to be reduced the most, and each problem has its own context and obstacles.
+
+3.	You've received the following email from someone you know
+
+What reply would you send? 
+A virus issues: There are some virus attached with file can make the error “out of space” if you install that file. Did you scan file (ThisAwesomeApplication) for the virus before you install it?
+If this file doesn’t cause by a virus issues, I’ll show you how to do the disk cleanup in windows 10 to get more space for the installation. What is operation system are you use? Window, Linux or Unix:
+First of all, I’ll send you the document how to do the disk cleanup in windows 10. Please, let me know if you don’t use windows operation system, then I’ll send you the document match your operation system.
+How to empty your recycle bin:
+-	Empty your recycle bin: On the desktop, Right click on recycle bin then click empty
+ 
+
+How to delete all files in your download folder:
+- Delete all files in your download folder: Right click on windows icon > click File Explorer
+ 
+Type this path in the address bar “C:\Users\username\AppData\Local\Temp” to then delete all files in your Temp folder
+ 
+My username is ThuyAdminLocal so my download folder at C:\Users\ ThuyAdminLocal \AppData\Local\Temp
+ 
+
+Hot to delete temporary files: 
+- Delete temporary files: right click on Window icon then click setting
+ 
+Setting > Storage > Temporary files
+ 
+
+Click Remove files button to delete temporary files.
+ 
+
+4.	What will be the output of the following C program, and why?
+ 
+Output: The value is 0
+The loop do { variable a take the decrease 1 from number 100} and the loop continuos decrese 1 until while (condition is false: a<0), when the condition is false then the lop do{} while() will stop looping, if condition is true: a>=0, then continuos the loop do()while{}
+After the loop (do {} while()) match the condition and stop looping, the value of a = 0.
+
+5.	Write a script that uses a regular expression (REGEX) to extract the keywords from the block of text below. A keyword is a string of capital letters surrounded by angle brackets. Example: <PERFORCE>. Each keyword should be output on a new line, without the "<>" characters. Please provide us with the script and its output.
+
+ 
+blockOfText.txt
+0AFGHi2398-k9nm<STATIC>\cvs231CVpid293000000000000000000000(PERFORCE)nmzxca3212<CODE>3321lasdSASD<klocwork>mcnsbSACbc[HELIX]1111111111111000vaAvm333311vmpascv<ANALYSIS>000000000000000vsp333311<qac>11111111vnvnASOVAbbbbbbbbbbbas<2231aACV>
+
+#Python programming
+import re
+import sys
+with open('blockOfText.txt') as f:
+    text = f.read()
+pattern = re.compile(r'\<.*?>')
+matches=pattern.findall(text)
+#print(matches)
+for line in matches:
+    replace_1=re.sub(r'<', '',line)
+    replace_2=re.sub(r'>', '',replace_1)
+    print(replace_2)
+  
+OUTPUT:
+PS D:\DEVELOPER\Python> python3 regularExpression.py        
+STATIC
+CODE
+klocwork
+ANALYSIS
+qac
+2231aACV
+ 
+
+6.	Write a console application in C, C++, C# or Java to deal out a random hand of cards. The application should:
+•	Take a single number as input
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int num;
+    cout << "input a single number: ";
+    cin>>num;
+    cout<<"the number you just input is " <<num;
+    return 0;
+}
+
+ 
+
+•	Print a number of cards equal to the number given from a standard deck of playing cards
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <deque>
+
+using namespace std;
+
+class Card {
+	public :
+		string suit;
+		string number;
+		Card();
+		Card(string s, string num);
+
+};
+
+Card::Card() {
+
+}
+
+Card::Card(const string s,const string num) : suit(s),number(num){
+}
+
+class Deck : public Card{
+	vector<Card> *deckOfCards;
+	const string SUITS[4] = {"CLUBS","DIMOND","HEARTS","SPADES"};
+	const string TYPE[13] = {"ACE","2","3","4","5","6","7","8","9","10","JOKER","QUEEN","KING"};
+	public:
+	Deck();
+	void show();
+	void shuffle();
+	~Deck();
+};
+
+Deck::Deck() {
+	deckOfCards = new vector<Card>();
+	deckOfCards->reserve(52);
+	for(int i = 0 ; i < 4 ; ++i)
+		for(int j = 0 ; j < 13 ; ++j)
+			deckOfCards->emplace_back(Card(SUITS[i],TYPE[j]));
+}
+
+void Deck::show() {
+	string showCard("");
+	auto it = deckOfCards->begin();
+	while (it != deckOfCards->end()) {
+		showCard.append((it->suit));
+		showCard.append(" of ");
+		showCard.append((it->number));
+		showCard.append("\n");
+		it = next(it);
+	}
+	cout << showCard <<endl;
+
+}
+
+Deck::~Deck() {
+	delete deckOfCards;
+}
+
+int main() {
+	Deck d;
+	cout << "52 playing cards: " << endl;
+	d.show();
+}
+ 
