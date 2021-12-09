@@ -1,0 +1,194 @@
+// Deck Of Cards (pointer)
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <deque>
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::get;
+using std::getline;
+
+
+
+//A card consists of an a number and a suit
+class Card {
+	public :
+		std::string suit;
+		std::string number;
+		Card();
+		Card(std::string s, std::string num);
+
+};
+
+Card::Card() {
+
+}
+
+Card::Card(const std::string s,const std::string num) : suit(s),number(num){
+}
+
+
+//This class will hold all 52 card
+class Deck : public Card{
+	std::vector<Card> *deckOfCards;
+	const std::string SUITS[4] = {"CLUBS","DIMOND","HEARTS","SPADES"};
+	const std::string TYPE[13] = {"ACE","2","3","4","5","6","7","8","9","10","JOKER","QUEEN","KING"};
+	public:
+	Deck();
+	void show();
+	void shuffle();
+
+//	Card* topCard();
+//	void popCard();
+
+	~Deck();
+};
+
+//Constructor will produce a new deck of cards and arrange them in sequence
+Deck::Deck() {
+	deckOfCards = new std::vector<Card>();
+	deckOfCards->reserve(52);
+	for(int i = 0 ; i < 4 ; ++i)
+		for(int j = 0 ; j < 13 ; ++j)
+			deckOfCards->emplace_back(Card(SUITS[i],TYPE[j]));
+}
+
+//This memeber function will show the card
+void Deck::show() {
+	std::string showCard("");
+	auto it = deckOfCards->begin();
+	while (it != deckOfCards->end()) {
+		showCard.append((it->suit));
+		showCard.append(" of ");
+		showCard.append((it->number));
+		showCard.append("\n");
+		it = std::next(it);
+	}
+	std::cout << showCard <<std::endl;
+
+}
+
+//This member function will shuffle the cards
+void Deck::shuffle() {
+//	srand(time(NULL));
+	std::random_shuffle(deckOfCards->begin(),deckOfCards->end());
+}
+
+
+//Destructor
+Deck::~Deck() {
+	delete deckOfCards;
+}
+
+
+int main() {
+	Deck d;
+	std::cout << "standard deck of playing cards: " << std::endl;
+	d.show();
+	std::cout << "Shuffling....: " << std::endl;
+	d.shuffle();
+	std::cout << "After: " << std::endl;
+	d.show();
+
+}
+
+OUTPUT: 
+
+DIMOND of 4
+DIMOND of 5
+DIMOND of 6
+DIMOND of 7
+DIMOND of 8
+DIMOND of 9
+DIMOND of 10
+DIMOND of JOKER
+DIMOND of QUEEN
+DIMOND of KING
+HEARTS of ACE
+HEARTS of 2
+HEARTS of 3
+HEARTS of 4
+HEARTS of 5
+HEARTS of 6
+HEARTS of 7
+HEARTS of 8
+HEARTS of 9
+HEARTS of 10
+HEARTS of JOKER
+HEARTS of QUEEN
+HEARTS of KING
+SPADES of ACE
+SPADES of 2
+SPADES of 3
+SPADES of 4
+SPADES of 5
+SPADES of 6
+SPADES of 7
+SPADES of 8
+SPADES of 9
+SPADES of 10
+SPADES of JOKER
+SPADES of QUEEN
+SPADES of KING
+
+Shuffling....:
+After:
+CLUBS of KING
+CLUBS of 2
+CLUBS of 10
+SPADES of JOKER
+CLUBS of ACE
+HEARTS of 2
+HEARTS of JOKER
+HEARTS of 6
+HEARTS of 4
+SPADES of 7
+DIMOND of 6
+SPADES of 8
+HEARTS of 7
+SPADES of 2
+DIMOND of JOKER
+SPADES of KING
+HEARTS of ACE
+SPADES of 3
+SPADES of 10
+DIMOND of 5
+CLUBS of 9
+SPADES of 9
+DIMOND of 10
+HEARTS of 9
+HEARTS of 5
+CLUBS of 8
+CLUBS of 7
+CLUBS of QUEEN
+CLUBS of 6
+CLUBS of 5
+CLUBS of 3
+DIMOND of 9
+SPADES of 4
+HEARTS of 10
+SPADES of QUEEN
+SPADES of ACE
+DIMOND of KING
+CLUBS of 4
+SPADES of 5
+DIMOND of 4
+HEARTS of KING
+HEARTS of QUEEN
+DIMOND of 2
+DIMOND of ACE
+DIMOND of QUEEN
+DIMOND of 3
+HEARTS of 3
+DIMOND of 7
+DIMOND of 8
+SPADES of 6
+CLUBS of JOKER
+HEARTS of 8
+
+
+
