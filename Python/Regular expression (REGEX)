@@ -1,4 +1,5 @@
 #Thuy Ta_Technical Support Engineer-Ottawa-SCA-Quiz[719]
+Screening interview - Question and answer - Technical Support Engineer - Tier2 (2021) for https://www.perforce.com/:
 Write a script that uses a regular expression (REGEX) to extract the keywords from the block of text below. 
 A keyword is a string of capital letters surrounded by angle brackets. Example: <PERFORCE>. 
 Each keyword should be output on a new line, without the "<>" characters. Please provide us with the script and its output.
